@@ -6,8 +6,10 @@ You can download the Package over composer with following line in composer File:
 
 ```
 "require": {
-    "php": ">=7.4.0",<br>
-    "miralsoft/weclapp-customer-export": ">=v1"
+    "php": ">=7.4.0",
+    "miralsoft/weclapp-api": "v1.*",
+    "miralsoft/doctrine-extensions": "dev-master",
+    "miralsoft/weclapp-customer-export": "v1.*"
 }
 ```
 
