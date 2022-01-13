@@ -30,19 +30,19 @@ With following code you can call the export:
 
 ```
 $export = new Export();
-$csvData = $export->exportDatevOnline('XXX', 'XXX');
+$csvData = $export->exportDatevOnline();
 ```
 Here you get the array for the csv file.
 <br><br>
 ```
 $export = new Export(true);
-$csvData = $export->exportDatevOnline('XXX', 'XXX');
+$csvData = $export->exportDatevOnline();
 ```
 Here it will be created a csv file in your actual path with the filename 'datevExport.csv'.
 <br><br>
 ```
 $export = new Export(true, 'export', 'filename.csv');
-$csvData = $export->exportDatevOnline('XXX', 'XXX');
+$csvData = $export->exportDatevOnline();
 ```
 Here a file will be created in the folder export with the name 'filename.csv'.
 
@@ -59,7 +59,7 @@ Config::$URI = 'https://xxx.weclapp.com/webapp/api/v1/';
 Config::$TOKEN = 'xxx';
 
 $export = new Export(true, '', 'datevExport.csv');
-$ok = $export->exportDatevOnline('XXX', 'XXX');
+$ok = $export->exportDatevOnline();
 
 echo $ok ? 'File successfull created' : 'Error while export';
 ```
