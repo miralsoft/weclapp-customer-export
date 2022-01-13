@@ -1,0 +1,23 @@
+{
+  "name": "miralsoft/weclapp-customer-export",
+  "description": "Exporter for customers from weclapp.",
+  "minimum-stability": "alpha",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Michael Tosch",
+      "email": "m.tosch@miralsoft.com",
+      "role" : "Softwareengineer"
+    }
+  ],
+  "autoload" : {
+    "psr-4" : {
+      "miralsoft\\weclapp\\customerexport\\" : "src"
+    }
+  },
+  "require": {
+    "php": ">=7.4.0",
+    "miralsoft/weclapp-api": "dev-Customers",
+    "miralsoft/doctrine-extensions": "dev-master"
+  }
+}
