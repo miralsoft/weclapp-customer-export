@@ -29,7 +29,7 @@ class Export
      */
     public function __construct(bool $generateCSVFile = false, string $path = '', string $fileName = 'export.csv')
     {
-
+        $this->setGenerateCSVFile($generateCSVFile);
         $this->setPath($path);
         $this->setFileName($fileName);
         $this->customer = new Customer();
