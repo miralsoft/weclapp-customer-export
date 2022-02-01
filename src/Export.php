@@ -26,14 +26,15 @@ class Export
      * @param bool $generateCSVFile if true the file will be generated, otherwise, the date will get as array
      * @param string $path The path were the file will be saved
      * @param string $fileName the filename for export file
+     * @param int $startCustNo The customer number where the export start
      */
-    public function __construct(bool $generateCSVFile = false, string $path = '', string $fileName = 'export.csv')
+    public function __construct(bool $generateCSVFile = false, string $path = '', string $fileName = 'export.csv', int $startCustNo = 0)
     {
         $this->setGenerateCSVFile($generateCSVFile);
         $this->setPath($path);
         $this->setFileName($fileName);
         $this->customer = new Customer();
-        $this->getCustomers();
+        $this->getCustomers($startCustNo);
     }
 
     /**
@@ -103,12 +104,29 @@ class Export
     /**
      * Loads the customers from weclapp
      *
+     * @param int $startCustNo The customer number where the export start
      * @return array
      */
-    protected function getCustomers()
+    protected function getCustomers(int $startCustNo = 0)
     {
         if (!is_array($this->customers) || count($this->customers) <= 0) {
-            $this->customers = $this->customer->getAll();
+            $customers = $this->customer->getAll('customerNumber');
+            $startKey = 0;
+
+            if($startCustNo > 0){
+                foreach($customers as $key => $customer) {
+                    $cCustomer = new WeclappCustomer($customer);
+                    if(intval($cCustomer->getCustomerNumber()) >= $startCustNo){
+                        $startKey = $key;
+                        break;
+                    }
+                }
+
+                // Gets only the customers from startID
+                $this->customers = array_slice($customers, $startKey);
+            } else {
+                $this->customers = $customers;
+            }
         }
 
         return $this->customers;

@@ -25,6 +25,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/common" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/orm" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/miralsoft/doctrine-extensions" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/miralsoft/weclapp-api" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

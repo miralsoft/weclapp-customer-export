@@ -25,6 +25,7 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/common" />
       <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
       <path value="$PROJECT_DIR$/vendor/miralsoft/doctrine-extensions" />
+      <path value="$PROJECT_DIR$/vendor/miralsoft/weclapp-api" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
