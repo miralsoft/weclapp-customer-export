@@ -8,8 +8,14 @@ use miralsoft\weclapp\customerexport\Export;
 Config::$URI = 'https://xxx.weclapp.com/webapp/api/v1/';
 Config::$TOKEN = 'xxx';
 
-$export = new Export(true, 'export', 'datevExport.csv');
-$data = $export->exportDatevOnline();
+$customerStart = 12070;
 
-if ($export->isGenerateCSVFile()) echo $data ? 'File successfull created' : 'Error while export';
+$export = new Export(true, 'export', 'datevExport.csv', $customerStart);
+$data = $export->exportDatevOnline();
+$lastCustomerNo = $export->getLastCustomerNo();
+
+if ($export->isGenerateCSVFile()) {
+    echo $data ? 'File successfull created' : 'Error while export';
+    echo '<br><br>The last exported customer no is: ' . $lastCustomerNo;
+}
 else    print_r($data);

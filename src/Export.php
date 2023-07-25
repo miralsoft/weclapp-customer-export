@@ -13,6 +13,9 @@ class Export
     /** @var array The customers loaded from weclapp */
     protected array $customers = array();
 
+    /** @var int The number of the last exported customer */
+    protected int $lastCustomerNo = 0;
+
     /** @var bool if true the file will be generated, otherwise, the date will get as array */
     protected bool $generateCSVFile = false;
 
@@ -113,10 +116,10 @@ class Export
             $customers = $this->customer->getAll('customerNumber');
             $startKey = 0;
 
-            if($startCustNo > 0){
-                foreach($customers as $key => $customer) {
+            if ($startCustNo > 0) {
+                foreach ($customers as $key => $customer) {
                     $cCustomer = new WeclappCustomer($customer);
-                    if(intval($cCustomer->getCustomerNumber()) >= $startCustNo){
+                    if (intval($cCustomer->getCustomerNumber()) >= $startCustNo) {
                         $startKey = $key;
                         break;
                     }
@@ -130,6 +133,16 @@ class Export
         }
 
         return $this->customers;
+    }
+
+    /**
+     * Get the last customer number that was exported
+     *
+     * @return int The last exported customer number
+     */
+    public function getLastCustomerNo(): int
+    {
+        return $this->lastCustomerNo;
     }
 
     /**
@@ -151,7 +164,13 @@ class Export
                 $cCustomer = new WeclappCustomer($customer);
 
                 // Anonymous company will be ignoerd
-                if($cCustomer->get('company') == 'ANONYMOUS_COMPANY')   continue;
+                if ($cCustomer->get('company') == 'ANONYMOUS_COMPANY') continue;
+
+                // Gets the customer number and saves if it is the biggest
+                $cusNo = $cCustomer->get('customerNumber');
+                if (isset($cusNo) && is_numeric($cusNo) && $this->lastCustomerNo < $cusNo) {
+                    $this->lastCustomerNo = $cusNo;
+                }
 
                 $customerData = [];
 
@@ -184,11 +203,10 @@ class Export
 
         $file = fopen($this->path . $this->fileName, 'w');
         foreach ($csvData as $data) {
-            if($withoutEnclosure) {
+            if ($withoutEnclosure) {
                 // In datev we need ansi format
                 fwrite($file, utf8_decode(implode(';', $data) . "\r\n"));
-            }
-            else {
+            } else {
                 if (!fputcsv($file, $data, ';')) {
                     fclose($file);
                     return false;
